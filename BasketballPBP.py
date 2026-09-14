@@ -14,7 +14,7 @@ import seaborn as sns
 fig, ax = plt.subplots(figsize=(10,8))
 
 pbp_25 = pd.read_csv("pbp2025.csv")
-shots = pbp_25.loc[:, ["playerid", "player", "x", "y","dist", "type", "subtype"]]
+shots = pbp_25.loc[:, ["playerid", "player", "x", "y","dist", "type", "subtype", "desc"]]
 shots = shots[shots["type"].isin(["Made Shot", "Missed Shot"])]
 shots["made"] = (shots["type"] == "Made Shot").astype('int')
 
@@ -74,7 +74,7 @@ ax.add_patch(
 #backboard
 ax.add_patch(
     patches.Rectangle(
-        (22, 3.3), 6, 0,
+        (22, 3.7), 6, 0,
         fill=False,
         linewidth=2
     )
@@ -92,12 +92,15 @@ ax.add_patch(
 #arc
 ax.add_patch(
     patches.Arc(
-        (25, 14), 44, 29,
+        (25, 5.25), width = 47.3, height = 47.3,
         fill=False,
         linewidth=2,
-        theta2 = 180
+        theta1 = 21.5,
+        theta2 = 158.5
     )
 )
+
+
 #paint
 ax.add_patch(
     patches.Rectangle(
@@ -119,7 +122,25 @@ ax.add_patch(
 #hoop
 ax.add_patch(
     patches.Circle(
-        (25, 5.25), 2,
+        (25, 5.25), 1.5,
+        fill=False,
+        linewidth=2
+    )
+)
+
+#line left 2
+ax.add_patch(
+    patches.Rectangle(
+        (0, 28), 3, 0, 
+        fill=False,
+        linewidth=2
+    )
+)
+
+#line right 2
+ax.add_patch(
+    patches.Rectangle(
+        (47, 28), 50, 0, 
         fill=False,
         linewidth=2
     )
@@ -146,10 +167,8 @@ plt.axis('off')
 plt.show()
 
 
-#*** MAKE GIT REPO WITH UPDATES STARTING FROM JUST THE COURT PLOT***
-
 # percent of total shots made and shots within an area made
 # better graphics
-# get all years csvs- put into one large clean dataset and be able to pick year and player
-# create 3pt percent made by adjusting x if higher than 14 and y greater than 23.75 or x less than 14 y greater than 22
+# 2 get all years csvs- put into one large clean dataset and be able to pick year and player
+# 1 create 3pt percent made by adjusting x if higher than 14 and y greater than 23.75 or x less than 14 y greater than 22
 # create another box boundry inverse of arc and outside of lines that is the 3pt area and shot is 3pt if in that area
