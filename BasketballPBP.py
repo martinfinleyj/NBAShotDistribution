@@ -151,6 +151,7 @@ ax.set_ylim(0, 47)
 ax.set_aspect('equal')
 
 plt.title(f"{name} 2024-2025 Shot Distribution", loc = 'center')
+plt.suptitle(f"3PT %: {threeppct}")
 plt.axis('off')
 plt.show()
 
