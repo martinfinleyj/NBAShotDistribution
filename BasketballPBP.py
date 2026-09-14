@@ -6,25 +6,13 @@ Created on Sun Sep 13 21:19:45 2026
 @author: finleymartin
 """
 
+#must input player name in Playerdata:mapping.py first
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-import pandas as pd
 import seaborn as sns
 
 fig, ax = plt.subplots(figsize=(10,8))
-
-pbp_25 = pd.read_csv("pbp2025.csv")
-shots = pbp_25.loc[:, ["playerid", "player", "x", "y","dist", "type", "subtype", "desc"]]
-shots = shots[shots["type"].isin(["Made Shot", "Missed Shot"])]
-shots["made"] = (shots["type"] == "Made Shot").astype('int')
-
-print("enter player name: F. Last:")
-name = input()
-
-shots['court_x'] = shots['x']/10 + 25
-shots['court_y'] = shots['y']/10 + 5.25
-
-shots_player = shots.query('player == @name')
 
 
 sns.kdeplot(shots_player.loc[shots['made'] == 1],
@@ -171,4 +159,3 @@ plt.show()
 # better graphics
 # 2 get all years csvs- put into one large clean dataset and be able to pick year and player
 # 1 create 3pt percent made by adjusting x if higher than 14 and y greater than 23.75 or x less than 14 y greater than 22
-# create another box boundry inverse of arc and outside of lines that is the 3pt area and shot is 3pt if in that area
