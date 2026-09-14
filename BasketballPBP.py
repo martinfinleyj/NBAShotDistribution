@@ -13,7 +13,6 @@ import seaborn as sns
 
 fig, ax = plt.subplots(figsize=(10,8))
 
-'''
 pbp_25 = pd.read_csv("pbp2025.csv")
 shots = pbp_25.loc[:, ["playerid", "player", "x", "y","dist", "type", "subtype"]]
 shots = shots[shots["type"].isin(["Made Shot", "Missed Shot"])]
@@ -28,7 +27,7 @@ shots['court_y'] = shots['y']/10 + 5.25
 shots_player = shots.query('player == @name')
 
 
-
+'''
 sns.kdeplot(shots_player.loc[shots['made'] == 1],
             x = 'court_x',
             y = 'court_y',
@@ -54,8 +53,8 @@ ax.scatter(
     color = 'red',
     marker = 'x'
 )
-
 '''
+
 #half court size
 ax.add_patch(
     patches.Rectangle(
