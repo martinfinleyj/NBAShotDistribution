@@ -9,6 +9,8 @@ Created on Mon Sep 14 16:18:57 2026
 
 import pandas as pd
 import numpy as np
+from tkinter import Tk, mainloop, Button
+from tkinter import ttk
 
 pbp_25 = pd.read_csv("pbp2025.csv")
 player_map = pd.read_csv("PlayerIndex_nba_stats.csv")
@@ -24,11 +26,27 @@ shots["made"] = (shots["type"] == "Made Shot").astype('int')
 shots["3PT"] = np.where(shots["desc"].str.contains("3PT"), 1, 0)
 shots["3PT_made"] = shots["3PT"] * shots["made"]
 
-print("enter player name: First Last:")
-name = input()
+players = shots["Player Name"].unique().tolist()
+
+master = Tk()
+
+player_dropdown = ttk.Combobox(master, values=players)
+player_dropdown.set(players[0])
+player_dropdown.pack()
+
+name = None
+
+def ok():
+    global name
+    name = player_dropdown.get()
+
+button = Button(master, text="OK", command=ok)
+button.pack()
+
+mainloop()
 
 shots['court_x'] = shots['x']/10 + 25
 shots['court_y'] = shots['y']/10 + 5.25
 
 shots_player = shots[shots["Player Name"] == name]
-threeppct = round(sum(shots_player["3PT_made"]) / sum(shots_player["3PT"]), 4)
+threeppct = round(sum(shots_player["3PT_made"]) / sum(shots_player["3PT"]), 3)

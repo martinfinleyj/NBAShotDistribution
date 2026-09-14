@@ -20,7 +20,7 @@ sns.kdeplot(shots_player.loc[shots['made'] == 1],
             y = 'court_y',
             fill = True,
             cmap = "Reds",
-            levels = 4)
+            levels = 8)
 
 
 ax.scatter(
@@ -155,8 +155,7 @@ plt.suptitle(f"3PT %: {threeppct}")
 plt.axis('off')
 plt.show()
 
-
-# percent of total shots made and shots within an area made
-# better graphics
-# 2 get all years csvs- put into one large clean dataset and be able to pick year and player
-# 1 create 3pt percent made by adjusting x if higher than 14 and y greater than 23.75 or x less than 14 y greater than 22
+# 1 able to choose player from dropdown
+# 2 shot percent made within an area made
+# 3 better graphics
+# 4 get all years csvs- put into one large clean dataset and be able to pick year and player
