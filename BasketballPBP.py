@@ -27,7 +27,6 @@ shots['court_y'] = shots['y']/10 + 5.25
 shots_player = shots.query('player == @name')
 
 
-'''
 sns.kdeplot(shots_player.loc[shots['made'] == 1],
             x = 'court_x',
             y = 'court_y',
@@ -53,7 +52,6 @@ ax.scatter(
     color = 'red',
     marker = 'x'
 )
-'''
 
 #half court size
 ax.add_patch(
@@ -143,7 +141,7 @@ ax.set_ylim(0, 47)
 
 ax.set_aspect('equal')
 
-#plt.title(f"{name} 2024-2025 Shot Distribution", loc = 'center')
+plt.title(f"{name} 2024-2025 Shot Distribution", loc = 'center')
 plt.axis('off')
 plt.show()
 
