@@ -28,6 +28,7 @@ shots["3PT_made"] = shots["3PT"] * shots["made"]
 
 players = shots["Player Name"].unique().tolist()
 
+#dropdown menu code
 master = Tk()
 
 player_dropdown = ttk.Combobox(master, values=players)
@@ -44,6 +45,7 @@ button = Button(master, text="OK", command=ok)
 button.pack()
 
 mainloop()
+#
 
 shots['court_x'] = shots['x']/10 + 25
 shots['court_y'] = shots['y']/10 + 5.25
