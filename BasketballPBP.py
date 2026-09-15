@@ -11,7 +11,6 @@ Created on Sun Sep 13 21:19:45 2026
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import seaborn as sns
-import numpy as np
 
 fig, ax = plt.subplots(figsize=(10,8))
 
@@ -153,22 +152,9 @@ ax.set_ylim(0, 47)
 
 
 plt.title(f"{name} 2024-2025 Shot Distribution", loc = 'center')
-plt.suptitle(f"3PT %: {threeppct}")
 plt.axis('off')
 
 # 2 shot percent made within an area made
-'''
-create multiple sections on the basketball court:
-    - these sections will be the areas of highest concentration
-    
-    
-    - will display stats like percent made, ranking in that area
-    - will move to expected point based on location (machine learning)
-    - sections either predetermined for all players or player specific:
-        if player specific ranking does not apply
-
-'''
-
 
 rx, ry = area_rect.get_xy()  # Bottom-left corner coordinate
 rw = area_rect.get_width()
@@ -178,13 +164,33 @@ rh = area_rect.get_height()
 in_x = (shots_player["court_x"] >= rx) & (shots_player["court_x"] <= rx + rw)
 in_y = (shots_player["court_y"] >= ry) & (shots_player["court_y"] <= ry + rh)
 
+
 # 4. Save the true/false mask to your DataFrame
 shots_player["inside_paint"] = in_x & in_y
-paint_percent = len(shots_player[(shots_player['made'] == 1) & (shots_player["inside_paint"] == True)]) / len(shots_player[shots_player['inside_paint'] == True])
+paint_total = len(shots_player[shots_player['inside_paint'] == True])
+paint_made = len(shots_player[(shots_player['made'] == 1) & (shots_player["inside_paint"] == True)])
+paint_percent = round((paint_made / paint_total) * 100, 1)
 
-print(f"Paint%: {paint_percent}")
+three_total = len(shots_player[shots_player['3PT'] == 1])
+three_made = len(shots_player[shots_player['3PT_made'] == 1])
+three_pct = round((three_made / three_total) * 100, 1)
 
-# 3 better graphics
-# 4 get all years csvs- put into one large clean dataset and be able to pick year and player
+shots_player["midrange"] = (shots_player["inside_paint"] == False) & (shots_player["3PT"] == 0)
+
+mid_total = len(shots_player[shots_player['midrange'] == True])
+mid_made = len(shots_player[(shots_player['made'] == 1) & (shots_player["midrange"] == True)])
+mid_pct = round((mid_made / mid_total) * 100, 1)
+
+plt.text(25, 8, f"PAINT {paint_percent}% | {paint_made}/{paint_total}", backgroundcolor = "black", color = "white")
+plt.text(36, 30, f"THREE {three_pct}% | {three_made}/{three_total}", backgroundcolor = "black", color = "white")
+plt.text(5, 15, f"MIDRANGE {mid_pct}% | {mid_made}/{mid_total}", backgroundcolor = "black", color = "white")
 ax.set_aspect('equal')
 plt.show()
+
+
+# 3 better graphics
+# total averages for all players
+# compare 2 players (seperate graphs or overlap)
+# 4 get all years csvs- put into one large clean dataset and be able to pick year and player
+# expected value for shot locations
+# possibly in the future be able to move small area and it detects percentage and shots made in the area

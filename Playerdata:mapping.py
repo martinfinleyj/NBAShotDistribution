@@ -50,5 +50,4 @@ mainloop()
 shots['court_x'] = shots['x']/10 + 25
 shots['court_y'] = shots['y']/10 + 5.25
 
-shots_player = shots[shots["Player Name"] == name]
-threeppct = round(sum(shots_player["3PT_made"]) / sum(shots_player["3PT"]), 3)
+shots_player = shots[shots["Player Name"] == name].copy()
